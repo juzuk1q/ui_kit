@@ -1,10 +1,10 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:vize/vize.dart';
 import 'package:ui_kit/components/colors.dart';
 
 // класс текста,
 class AppText{
-  const AppText._();
+  AppText._();
 
   static TextStyle _base({
     required double fontSize,
