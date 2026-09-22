@@ -16,12 +16,12 @@ class AppText{
     fontSize: fontSize,
     fontWeight: fontWeight,
     color: color ?? AppColors.black,
-    letterSpacing: letterSpacing! / fontSize.fh,
+    letterSpacing: letterSpacing ?? 0,
   );
 
-  static TextStyle get header => base(fontSize: 24.fh, fontWeight: .w700, letterSpacing: 32.fh);
-  static TextStyle get subHeader => base(fontSize: 18.fh, fontWeight: .w600, letterSpacing: 24.fh);
-  static TextStyle get bodyM => base(fontSize: 16.fh, fontWeight: .w400, letterSpacing: 24.fh);
-  static TextStyle get bodyS => base(fontSize: 14.fh, fontWeight: .w400, letterSpacing: 20.fh);
-  static TextStyle get fieldLabel => base(fontSize: 14.fh, fontWeight: .w600, letterSpacing: 20.fh);
+  static TextStyle get header => base(fontSize: 24.fh, fontWeight: .w700, letterSpacing: -0.48.fw);
+  static TextStyle get subHeader => base(fontSize: 18.fh, fontWeight: .w600, letterSpacing: -0.18.fw);
+  static TextStyle get bodyM => base(fontSize: 16.fh, fontWeight: .w400);
+  static TextStyle get bodyS => base(fontSize: 14.fh, fontWeight: .w400);
+  static TextStyle get fieldLabel => base(fontSize: 14.fh, fontWeight: .w600);
 }
