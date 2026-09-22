@@ -2,7 +2,7 @@ import 'dart:ui';
 
 // цвета для различных элементов. (не буду дальше комментить, мне лень)
 class AppColors{
-  const AppColors._();
+  const AppColors();
 
   static const primary = Color(0xff004AC6);
   static const secondary = Color(0xff505F76);

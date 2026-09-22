@@ -4,7 +4,7 @@ import 'package:ui_kit/components/colors.dart';
 
 // класс текста,
 class AppText{
-  AppText._();
+  AppText();
 
   static TextStyle _base({
     required double fontSize,
