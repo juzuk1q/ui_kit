@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 // цвета для различных элементов. (не буду дальше комментить, мне лень)
 class AppColors{

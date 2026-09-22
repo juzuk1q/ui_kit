@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:vize/vize.dart';
+import 'package:vize/vize.dart' hide TextStyle;
 import 'package:ui_kit/components/colors.dart';
 
 // класс текста,
 class AppText{
   AppText();
 
-  static TextStyle _base({
+  static TextStyle base({
     required double fontSize,
     required FontWeight fontWeight,
     Color? color,
@@ -19,9 +19,9 @@ class AppText{
     letterSpacing: letterSpacing! / fontSize.fh,
   );
 
-  static TextStyle get header => _base(fontSize: 24, fontWeight: .w700, letterSpacing: 32.fh);
-  static TextStyle get subHeader => _base(fontSize: 18, fontWeight: .w600, letterSpacing: 24.fh);
-  static TextStyle get bodyM => _base(fontSize: 16, fontWeight: .w400, letterSpacing: 24.fh);
-  static TextStyle get bodyS => _base(fontSize: 14, fontWeight: .w400, letterSpacing: 20.fh);
-  static TextStyle get fieldLabel => _base(fontSize: 14, fontWeight: .w600, letterSpacing: 20.fh);
+  static TextStyle get header => base(fontSize: 24.fh, fontWeight: .w700, letterSpacing: 32.fh);
+  static TextStyle get subHeader => base(fontSize: 18.fh, fontWeight: .w600, letterSpacing: 24.fh);
+  static TextStyle get bodyM => base(fontSize: 16.fh, fontWeight: .w400, letterSpacing: 24.fh);
+  static TextStyle get bodyS => base(fontSize: 14.fh, fontWeight: .w400, letterSpacing: 20.fh);
+  static TextStyle get fieldLabel => base(fontSize: 14.fh, fontWeight: .w600, letterSpacing: 20.fh);
 }
