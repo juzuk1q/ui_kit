@@ -19,7 +19,6 @@ class AppText{
     color: color ?? AppColors.black,
     letterSpacing: letterSpacing ?? 0,
     height: height / fontSize,
-    package: 'ui_kit'
   );
 
   static TextStyle get header => base(fontSize: 24.fh, fontWeight: .w700, letterSpacing: -0.48, height: 32);
