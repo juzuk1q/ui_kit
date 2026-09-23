@@ -98,7 +98,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = _colors;
     final border = OutlineInputBorder(
       borderSide: BorderSide(color: _borderColor, width: 1),
       borderRadius: .circular(8.r),
@@ -164,7 +163,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         width: 18.fw,
         child: Padding(
           padding: po(l: 18.fw, r: 8.fw),
-          child: SvgPicture.asset('lib/icons/search.svg'),
+          child: SvgPicture.asset('lib/icons/search.svg', package: 'ui_kit'),
         ),
       );
     }
@@ -178,7 +177,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onTap: () => setState(() => _obscureText = !_obscureText),
         child: Padding(
           padding: po(r: 18.fw),
-          child: SizedBox(width: 18.fw, child: SvgPicture.asset('lib/icons/eye.svg')),
+          child: SizedBox(width: 18.fw, child: SvgPicture.asset('lib/icons/eye.svg', package: 'ui_kit')),
         ),
       );
     }

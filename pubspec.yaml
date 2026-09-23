@@ -21,23 +21,23 @@ dev_dependencies:
 
 flutter:
    assets:
-     - lib/icons/
+     - assets/icons/
 
    fonts:
      - family: Manrope
        fonts:
-         - asset: lib/fonts/Manrope-ExtraLight.ttf
+         - asset: assets/fonts/Manrope-ExtraLight.ttf
            weight: 200
-         - asset: lib/fonts/Manrope-Light.ttf
+         - asset: assets/fonts/Manrope-Light.ttf
            weight: 300
-         - asset: lib/fonts/Manrope-Regular.ttf
+         - asset: assets/fonts/Manrope-Regular.ttf
            weight: 400
-         - asset: lib/fonts/Manrope-Medium.ttf
+         - asset: assets/fonts/Manrope-Medium.ttf
            weight: 500
-         - asset: lib/fonts/Manrope-SemiBold.ttf
+         - asset: assets/fonts/Manrope-SemiBold.ttf
            weight: 600
-         - asset: lib/fonts/Manrope-Bold.ttf
+         - asset: assets/fonts/Manrope-Bold.ttf
            weight: 700
-         - asset: lib/fonts/Manrope-ExtraBold.ttf
+         - asset: assets/fonts/Manrope-ExtraBold.ttf
            weight: 800
 
