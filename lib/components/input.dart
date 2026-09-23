@@ -163,7 +163,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         width: 18.fw,
         child: Padding(
           padding: po(l: 18.fw, r: 8.fw),
-          child: SvgPicture.asset('lib/icons/search.svg'),
+          child: SvgPicture.asset('assets/icons/search.svg'),
         ),
       );
     }
@@ -177,7 +177,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onTap: () => setState(() => _obscureText = !_obscureText),
         child: Padding(
           padding: po(r: 18.fw),
-          child: SizedBox(width: 18.fw, child: SvgPicture.asset('lib/icons/eye.svg')),
+          child: SizedBox(width: 18.fw, child: SvgPicture.asset('assets/icons/eye.svg')),
         ),
       );
     }
