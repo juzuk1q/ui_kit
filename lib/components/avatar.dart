@@ -72,10 +72,10 @@ class CustomAvatars extends StatelessWidget {
                 ),
               ),
             ),
-            if (image != null)
+            if (img != null)
               Positioned.fill(
                 child: Image(
-                  image: img!,
+                  image: img,
                   fit: .cover,
                   errorBuilder: (_, __, ___) => SizedBox.shrink(),
                 ),
