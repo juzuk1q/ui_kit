@@ -40,7 +40,7 @@ class CustomCheckbox extends StatelessWidget {
           borderRadius: .circular(4.r),
         ),
         child: isChecked
-            ? SizedBox(height: 7.01.fh, width: 9.51.fw, child: SvgPicture.asset('assets/icons/checked.svg'))
+            ? SizedBox(height: 7.01.fh, width: 9.51.fw, child: SvgPicture.asset('assets/icons/checked.svg',package: 'ui_kit',))
             : null,
       ),
     );
