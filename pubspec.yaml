@@ -1,6 +1,6 @@
 name: ui_kit
 description: "a."
-version: 0.0.3
+version: 0.0.4
 homepage:
 
 environment:
@@ -23,6 +23,7 @@ dev_dependencies:
 flutter:
    assets:
      - assets/icons/
+     - assets/images/
 
    fonts:
      - family: Manrope
