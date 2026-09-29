@@ -15,6 +15,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: ps(h: 20.fw),
       height: 65.fh,
       width: double.infinity,
       decoration: BoxDecoration(
