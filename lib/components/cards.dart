@@ -101,11 +101,11 @@ class CustomCard extends StatelessWidget {
               style: AppText.subHeader.copyWith(color: AppColors.black),
             ),
             Spacer(),
-            _chipCircle(status ?? 'Active'),
+            _chipCircle(status ?? 'Active', AppColors.secondary, AppColors.grey),
           ],
         ),
         SizedBox(height: 4.fh),
-        Text([iconText1, iconText2].join(' • ')),
+        Text([iconText1, iconText2].join(' • '), style: AppText.bodyS.copyWith(color: AppColors.secondary)),
         SizedBox(height: 16.fh),
         Container(
           padding: po(t: 10),
@@ -121,9 +121,9 @@ class CustomCard extends StatelessWidget {
             mainAxisSize: .min,
             crossAxisAlignment: .start,
             children: [
-              _IconText(icon3!, iconText3!, 11, 16.5),
+              _IconText(icon3!, iconText3!, 11, 16.5, AppColors.black),
               SizedBox(width: 24.fw),
-              _IconText(icon4!, iconText4!, 9, 16),
+              _IconText(icon4!, iconText4!, 9, 16, AppColors.black),
             ],
           ),
         ),
@@ -182,12 +182,15 @@ class CustomCard extends StatelessWidget {
   
   Widget _NumberCard() {
     return Column(
+      mainAxisAlignment: .start,
+      crossAxisAlignment: .start,
       children: [
         Row(
           children: [
             CustomAvatars(initials: 'Alexander Volkov', avatar: .avatar3, size: 48,),
             SizedBox(width: 16.fw),
             Column(
+              crossAxisAlignment: .start,
               children: [
                 Text(title!, style: AppText.fieldLabel,),
                 Text('Senior Product', style: AppText.bodyS.copyWith(color: AppColors.secondary),)
@@ -204,7 +207,7 @@ class CustomCard extends StatelessWidget {
           children: [
             _IconText('assets/icons/phone.svg', '+1 415 555 0128', 13.5, 13.5),
             SizedBox(width: 4.fw,),
-            SvgPicture.asset('assets/icons/copy.svg', colorFilter: .mode(AppColors.primary, .srcIn,)),
+            SizedBox(height: 13.33.fh, child: SvgPicture.asset('assets/icons/copy.svg', colorFilter: .mode(AppColors.primary, .srcIn,))),
           ],
         )
       ],
@@ -216,7 +219,7 @@ class CustomCard extends StatelessWidget {
       padding: pa(8),
       child: Column(
         children: [
-          Text(title!, style: AppText.subHeader),
+          Text(title!, style: AppText.subHeader.copyWith(fontWeight: .w700)),
           SizedBox(height: 4.fh),
           Text(job!, style: AppText.bodyM.copyWith(color: AppColors.secondary)),
           SizedBox(height: 16.fh),
@@ -229,7 +232,7 @@ class CustomCard extends StatelessWidget {
           Container(
             padding: po(t: 16),
             decoration: BoxDecoration(
-              border: .fromLTRB(top: .new(color: AppColors.grey)),
+              border: .fromLTRB(top: .new(color: AppColors.darkenWhite)),
             ),
             child: Row(
               children: [
