@@ -9,3 +9,4 @@ export 'components/buttons/button.dart';
 export 'components/buttons/checkbox.dart';
 export 'components/avatar.dart';
 export 'components/cards.dart';
+export 'components/appbar.dart';
