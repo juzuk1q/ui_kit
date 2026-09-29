@@ -140,6 +140,7 @@ class CustomCard extends StatelessWidget {
             CustomAvatars(initials: title!, avatar: .initials),
             SizedBox(height: 16.fh),
             Column(
+              crossAxisAlignment: .start,
               children: [
                 Text(title!, style: AppText.bodyS),
                 SizedBox(height: 4.fh),
@@ -207,7 +208,7 @@ class CustomCard extends StatelessWidget {
           children: [
             _IconText('assets/icons/phone.svg', '+1 415 555 0128', 13.5, 13.5),
             SizedBox(width: 4.fw,),
-            SizedBox(height: 13.33.fh, child: SvgPicture.asset('assets/icons/copy.svg', colorFilter: .mode(AppColors.primary, .srcIn,))),
+            SizedBox(height: 13.33.fh, width: 13.33.fw, child: SvgPicture.asset('assets/icons/copy.svg', colorFilter: .mode(AppColors.primary, .srcIn,))),
           ],
         )
       ],
@@ -305,7 +306,7 @@ class CustomCard extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: AppText.fieldLabel.copyWith(color: colorBg),
+        style: AppText.fieldLabel.copyWith(color: colorText),
       ),
     );
   }
