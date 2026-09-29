@@ -5,7 +5,7 @@ import 'package:vize/vize.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 enum TextFieldState { disabled, error, focused, normal }  // состояния поле ввода
-enum TextFieldType { normal, pwrd, search }               // типы поле ввода
+enum TextFieldType { normal, pwrd, search, textArea }               // типы поле ввода
 
 class CustomTextField extends StatefulWidget {
   final TextFieldType? type;      // типы
@@ -16,6 +16,8 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;  // контроллер
   final bool enabled;             // флаг для включения / выключения поле ввода
   final bool hasError;            // флаг для ошибок
+  final int? maxLines;
+  final double? height;
 
   const CustomTextField({
     super.key,
@@ -27,6 +29,8 @@ class CustomTextField extends StatefulWidget {
     this.enabled = true,
     this.hasError = false,
     this.errorDescription = 'ERR_DESCRIPTION',
+    this.maxLines,
+    this.height,
   });
 
   @override
@@ -103,6 +107,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       borderRadius: .circular(8.r),
     );
 
+    final isTextArea = widget.type == TextFieldType.textArea;
+    final containerHeight = widget.height?.fh ?? (isTextArea ? 100.fh : 50.fh);
+
     return Column(
       crossAxisAlignment: .start,
       children: [
@@ -117,13 +124,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
           SizedBox(height: 4.5.fh),
         ],
         Container(
-          height: 50.fh,
+          height: containerHeight,
           width: 350.fw,
           child: TextField(
             controller: widget.controller,
             focusNode: _focusNode,
             enabled: widget.enabled,
             obscureText: widget.type == .pwrd && _obscureText,
+            maxLines: isTextArea ? (widget.maxLines ?? 5) : 1,
+            keyboardType: isTextArea ? TextInputType.multiline : TextInputType.text,
+            style: AppText.bodyM.copyWith(color: _textColor),
             decoration: InputDecoration(
               contentPadding: ps(h: 16.fw, v: 12.fh),
               hintText: widget.hintText,
