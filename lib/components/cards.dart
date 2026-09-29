@@ -138,7 +138,7 @@ class CustomCard extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             CustomAvatars(initials: title!, avatar: .initials),
-            SizedBox(height: 16.fh),
+            SizedBox(width: 16.fw),
             Column(
               crossAxisAlignment: .start,
               children: [
@@ -219,6 +219,7 @@ class CustomCard extends StatelessWidget {
     return Container(
       padding: pa(8),
       child: Column(
+        crossAxisAlignment: .start,
         children: [
           Text(title!, style: AppText.subHeader.copyWith(fontWeight: .w700)),
           SizedBox(height: 4.fh),
