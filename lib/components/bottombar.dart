@@ -49,7 +49,7 @@ class CustomBottomBar extends StatelessWidget {
 
   Widget _Normal() {
     return Padding(
-      padding: ps(h: 23.5.fw, v: 21.5.fh),
+      padding: ps(h: 22.5.fw, v: 21.5.fh),
       child: Row(
         children: List.generate(_items.length, (i) {
           final selected = i == selectedIndex;
