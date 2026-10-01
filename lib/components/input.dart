@@ -135,7 +135,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             keyboardType: isTextArea ? TextInputType.multiline : TextInputType.text,
             style: AppText.bodyM.copyWith(color: _textColor),
             decoration: InputDecoration(
-              contentPadding: ps(h: 16.fw, v: 12.fh),
+              contentPadding: isTextArea ? (ps(h: 16.fw, v: 16.fh)) : (ps(h: 16.fw, v: 12.fh)),
               hintText: widget.hintText,
               hintStyle: AppText.bodyM.copyWith(color: _textColor),
               filled: true,

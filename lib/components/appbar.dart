@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vize/vize.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-
 class CustomAppBar extends StatelessWidget {
   final String title;
   final Widget? firstIcon;
