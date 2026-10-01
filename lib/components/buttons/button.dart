@@ -2,7 +2,7 @@ import 'package:ui_kit/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:vize/vize.dart';
 
-enum CustomButtonState { normal, disabled, outlined, destructive }
+enum CustomButtonState { normal, disabled, outlined, destructive }  // вариации кнопок
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;         // действие при нажатии
@@ -11,6 +11,7 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton({super.key, required this.onTap, this.text='Text', this.state = CustomButtonState.normal});
 
+  // кортеж для сопоставления цветов с вариантом кнопки
   ({Color textColor, Color bgColor, Color borderColor}) get _colors => switch (state) {
     CustomButtonState.normal => (textColor: AppColors.white, bgColor: AppColors.primary, borderColor: AppColors.primary),
     CustomButtonState.disabled => (textColor: AppColors.white, bgColor: AppColors.primary.withValues(alpha: 0.6), borderColor: AppColors.primary.withValues(alpha: 0.3)),

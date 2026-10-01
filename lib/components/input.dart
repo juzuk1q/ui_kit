@@ -5,7 +5,7 @@ import 'package:vize/vize.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 enum TextFieldState { disabled, error, focused, normal }  // состояния поле ввода
-enum TextFieldType { normal, pwrd, search, textArea }               // типы поле ввода
+enum TextFieldType { normal, pwrd, search, textArea }     // типы поле ввода
 
 class CustomTextField extends StatefulWidget {
   final TextFieldType? type;      // типы
@@ -16,8 +16,8 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;  // контроллер
   final bool enabled;             // флаг для включения / выключения поле ввода
   final bool hasError;            // флаг для ошибок
-  final int? maxLines;
-  final double? height;
+  final int? maxLines;            // максимально линий
+  final double? height;           // высота
 
   const CustomTextField({
     super.key,

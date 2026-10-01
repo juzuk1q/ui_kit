@@ -6,18 +6,20 @@ import 'package:ui_kit/ui_kit.dart';
 enum CheckBoxState{checked, unchecked, disabled}
 
 class CustomCheckbox extends StatelessWidget {
-  final VoidCallback? onTap;
-  final bool value;
-  final CheckBoxState state;
+  final VoidCallback? onTap;        // действие при нажатии
+  final bool value;                 // значение чекбокса
+  final CheckBoxState state;        // состояние чекбокса
 
   const CustomCheckbox({super.key, this.state = .unchecked, this.value = false, this.onTap});
 
+  // получаем состояние чекбокса
   CheckBoxState get _currentState {
     if (state == CheckBoxState.disabled) return CheckBoxState.disabled;
     if (value || state == CheckBoxState.checked) return CheckBoxState.checked;
     return CheckBoxState.unchecked;
   }
 
+  // кортеж для сопоставления цветов с вариантом кнопки
   ({Color bgColor, Color borderColor}) get _colors => switch (state) {
     CheckBoxState.checked => (bgColor: AppColors.primary, borderColor: AppColors.primary),
     CheckBoxState.unchecked => (bgColor: AppColors.darkenWhite, borderColor: AppColors.secondary),

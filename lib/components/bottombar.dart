@@ -3,14 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ui_kit/ui_kit.dart';
 import 'package:vize/vize.dart';
 
-enum BottomBarType { normal, fromJSON }
+enum BottomBarType { normal, fromJSON }   // тип ботмбара
 
 class CustomBottomBar extends StatelessWidget {
-  final int selectedIndex;
-  final BottomBarType type;
-  final ValueChanged<int>? onTap;
-  final VoidCallback? onSaveTap;
-  final VoidCallback? onContinueTap;
+  final int selectedIndex;                // выбранный элемент
+  final BottomBarType type;               // тип ботмбара
+  final ValueChanged<int>? onTap;         // нажатие на элемент
+  final VoidCallback? onSaveTap;          // сохранить
+  final VoidCallback? onContinueTap;      // продолжить
 
   const CustomBottomBar({
     super.key,
@@ -43,7 +43,7 @@ class CustomBottomBar extends StatelessWidget {
           topRight: .circular(12.r),
         ),
       ),
-      child: type == .fromJSON ? _FromJSON() : _Normal(),
+      child: type == .fromJSON ? _FromJSON() : _Normal(),   // если тип ботмбара не указан, по умолчанию делаем обычный.
     );
   }
 

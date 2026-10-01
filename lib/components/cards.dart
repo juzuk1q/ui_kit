@@ -18,10 +18,10 @@ class CustomCard extends StatelessWidget {
   final String? title; // имя + фамилия
   final String? job; // должность
   final String? status; // состояние (на .vacantion)
-  final String? icon1;
-  final String? iconText1;
-  final String? icon2;
-  final String? iconText2;
+  final String? icon1; // иконка для элемента 1
+  final String? iconText1; // текст для элемента 1
+  final String? icon2; // иконка для элемента 2
+  final String? iconText2; // текст для элемента 2
   final String? icon3; // иконка для элемента 3
   final String? iconText3; // текст для элемента 3 (.vacantion)
   final String? icon4; // иконка для элемента 4

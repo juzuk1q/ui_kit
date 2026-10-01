@@ -3,8 +3,8 @@ import 'package:vize/vize.dart';
 import 'package:flutter/material.dart';
 
 class CustomProgressBar extends StatelessWidget {
-  final int totalSteps;
-  final int currentSteps;
+  final int totalSteps;     // сколько шагов всего
+  final int currentSteps;   // текущий шаг
 
   const CustomProgressBar({super.key, required this.totalSteps, required this.currentSteps});
 
@@ -25,7 +25,6 @@ class CustomProgressBar extends StatelessWidget {
     return Row(
       children: List.generate(totalSteps, (index) {
         final color = _colorIndex(index);
-
         return Expanded(child: _progressElement(color));
       }),
     );

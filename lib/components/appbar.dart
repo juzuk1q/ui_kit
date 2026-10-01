@@ -3,11 +3,11 @@ import 'package:vize/vize.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final String title;
-  final Widget? firstIcon;
-  final Widget? secondIcon;
-  final VoidCallback? onTap1;
-  final VoidCallback? onTap2;
+  final String title;           // заголовок
+  final Widget? firstIcon;      // кнопка слева
+  final Widget? secondIcon;     // кнопка справа
+  final VoidCallback? onTap1;   // действие на кнопку слеву
+  final VoidCallback? onTap2;   // действие на кнопку справа
 
   const CustomAppBar({super.key, required this.title, this.firstIcon, this.secondIcon, this.onTap1, this.onTap2});
 
