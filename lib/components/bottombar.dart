@@ -56,7 +56,7 @@ class CustomBottomBar extends StatelessWidget {
           final item = _items[i];
           return Expanded(
             child: Container(
-              margin: ps(h: 24.5.fw),
+              margin: ps(h: 20.5.fw),
               child: GestureDetector(
                 onTap: () => onTap?.call(i),
                 child: Column(
@@ -131,6 +131,7 @@ class CustomBottomBar extends StatelessWidget {
                 SvgPicture.asset(
                   _jsonItems.last.icon,
                   colorFilter: .mode(AppColors.white, .srcIn),
+                  package: 'ui_kit',
                 ),
                 SizedBox(height: 4.fh),
                 Text(
