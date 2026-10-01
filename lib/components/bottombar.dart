@@ -56,7 +56,7 @@ class CustomBottomBar extends StatelessWidget {
           final item = _items[i];
           return Expanded(
             child: Container(
-              margin: ps(h: 20.5.fw),
+              margin: ps(h: 18.5.fw),
               child: GestureDetector(
                 onTap: () => onTap?.call(i),
                 child: Column(
@@ -97,6 +97,7 @@ class CustomBottomBar extends StatelessWidget {
           GestureDetector(
             onTap: onSaveTap,
             child: Container(
+              padding: pa(8),
               height: 48,
               width: 125,
               color: Colors.transparent,
@@ -125,6 +126,7 @@ class CustomBottomBar extends StatelessWidget {
                 color: AppColors.primary,
                 borderRadius: .circular(12.r),
               ),
+              padding: pa(8),
               height: 48.fh,
               width: 165.fw,
               child: Column(children: [
