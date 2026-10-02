@@ -258,7 +258,7 @@ class _CustomCardState extends State<CustomCard> {
           children: [
             _IconText('assets/icons/phone.svg', '+1 415 555 0128', 13.5, 13.5),
             SizedBox(width: 4.fw,),
-            SizedBox(height: 13.33.fh, width: 13.33.fw, child: SvgPicture.asset('assets/icons/copy.svg', colorFilter: .mode(AppColors.primary, .srcIn,))),
+            SizedBox(height: 13.33.fh, width: 13.33.fw, child: SvgPicture.asset('assets/icons/copy.svg', colorFilter: .mode(AppColors.primary, .srcIn), package: 'ui_kit')),
           ],
         )
       ],
