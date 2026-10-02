@@ -3,14 +3,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ui_kit/ui_kit.dart';
 import 'package:vize/vize.dart';
 
-enum BottomBarType { normal, fromJSON }   // тип ботмбара
+// тип ботмбара
+enum BottomBarType {
+  normal,   // обычный (используется в основных экранах приложения)
+  fromJSON  // для редактирования (используется при заполнении каких-либо анкет
+}
 
+/*
+    дата создания: 29-09-2026
+    автор создания: 1001
+    класс отвечает за создание ботмбара в нижней части экрана.
+*/
 class CustomBottomBar extends StatelessWidget {
-  final int selectedIndex;                // выбранный элемент
-  final BottomBarType type;               // тип ботмбара
-  final ValueChanged<int>? onTap;         // нажатие на элемент
-  final VoidCallback? onSaveTap;          // сохранить
-  final VoidCallback? onContinueTap;      // продолжить
+  final int selectedIndex; // выбранный элемент
+  final BottomBarType type; // тип ботмбара
+  final ValueChanged<int>? onTap; // нажатие на элемент
+  final VoidCallback? onSaveTap; // сохранить
+  final VoidCallback? onContinueTap; // продолжить
 
   const CustomBottomBar({
     super.key,
@@ -21,12 +30,14 @@ class CustomBottomBar extends StatelessWidget {
     this.onContinueTap,
   });
 
+  // словарь для основного ботмбара
   static const _items = [
     (label: 'Vacancies', icon: 'assets/icons/vacancies.svg'),
     (label: 'Candidates', icon: 'assets/icons/candidates.svg'),
     (label: 'Settings', icon: 'assets/icons/settings.svg'),
   ];
 
+  // словарь для ботмбара, использующийся для редактирования
   static const _jsonItems = [
     (label: 'Сохранить', icon: 'assets/icons/save.svg'),
     (label: 'Продолжить', icon: 'assets/icons/continue.svg'),
@@ -43,10 +54,11 @@ class CustomBottomBar extends StatelessWidget {
           topRight: .circular(12.r),
         ),
       ),
-      child: type == .fromJSON ? _FromJSON() : _Normal(),   // если тип ботмбара не указан, по умолчанию делаем обычный.
+      child: type == .fromJSON ? _FromJSON() : _Normal(), // если тип ботмбара не указан, по умолчанию делаем обычный.
     );
   }
 
+  // обычный ботмбар
   Widget _Normal() {
     return Padding(
       padding: ps(h: 22.5.fw, v: 21.5.fh),
@@ -89,6 +101,7 @@ class CustomBottomBar extends StatelessWidget {
     );
   }
 
+  // ботмбар для редактирования чего-либо
   Widget _FromJSON() {
     return Padding(
       padding: ps(h: 43.89.fw, v: 15.5.fh),
@@ -129,18 +142,20 @@ class CustomBottomBar extends StatelessWidget {
               padding: pa(8),
               height: 48.fh,
               width: 165.fw,
-              child: Column(children: [
-                SvgPicture.asset(
-                  _jsonItems.last.icon,
-                  colorFilter: .mode(AppColors.white, .srcIn),
-                  package: 'ui_kit',
-                ),
-                SizedBox(height: 4.fh),
-                Text(
-                  _jsonItems.last.label,
-                  style: AppText.bodyS.copyWith(color: AppColors.white),
-                ),
-              ]),
+              child: Column(
+                children: [
+                  SvgPicture.asset(
+                    _jsonItems.last.icon,
+                    colorFilter: .mode(AppColors.white, .srcIn),
+                    package: 'ui_kit',
+                  ),
+                  SizedBox(height: 4.fh),
+                  Text(
+                    _jsonItems.last.label,
+                    style: AppText.bodyS.copyWith(color: AppColors.white),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

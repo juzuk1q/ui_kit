@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ui_kit/ui_kit.dart';
 import 'package:vize/vize.dart';
 
+// тип карточек
 enum CardType {
   visitCard, // карточка с аватаром, именем+фамилией, должность
   vacantion, // карточка с вакансией
@@ -11,6 +12,11 @@ enum CardType {
   experience, // карточка без аватара, самая большая
 }
 
+/*
+    дата создания: 25-09-2026
+    автор создания: 1001
+    класс отвечает за создания и отрисовки карточек (они нигде не используются, зачем).
+*/
 class CustomCard extends StatelessWidget {
   final CardType type; // тип карточки
   final double height; // высота карточки
@@ -45,6 +51,7 @@ class CustomCard extends StatelessWidget {
     this.iconText4 = '24 Applicants',
   });
 
+  // каркас для карточек
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,6 +72,7 @@ class CustomCard extends StatelessWidget {
             ),
           ],
         ),
+        // меняем содержимое, в зависимости от типа карточки
         child: switch (type) {
           CardType.visitCard => _VisitCard(),
           CardType.vacantion => _VacantionCard(),
@@ -269,6 +277,7 @@ class CustomCard extends StatelessWidget {
     );
   }
 
+  // доп. виджет для отрисовки иконки рядом с текстом
   Widget _IconText(
     String icon,
     String text,
@@ -298,6 +307,7 @@ class CustomCard extends StatelessWidget {
     );
   }
 
+  // доп. виджет для чипса с сильным закруглением
   Widget _chipCircle(String text, [Color colorText = AppColors.primary, Color colorBg = AppColors.grey]) {
     return Container(
       padding: ps(h: 12.fw, v: 4.fh),
@@ -312,6 +322,7 @@ class CustomCard extends StatelessWidget {
     );
   }
 
+  // доп. виджет для чипса с закруглением
   Widget _chipRound(String text) {
     return Container(
       padding: ps(h: 8.fw, v: 4.fh),

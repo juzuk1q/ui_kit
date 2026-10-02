@@ -3,7 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ui_kit/ui_kit.dart';
 import 'package:vize/vize.dart';
 
-void showCustomSnack( //вызов снэкбара
+//вызов снэкбара
+void showCustomSnack(
     BuildContext context, {
       required String msg,
       String action = 'UNDO',
@@ -30,13 +31,23 @@ void showCustomSnack( //вызов снэкбара
     );
   }
 
-class CustomSnackBar extends StatelessWidget {
-  final String msg;
-  final String? action;
-  final VoidCallback? onAction;
+/*
+    дата создания: 29-09-2026
+    автор создания: 1001
+    класс отвечает за создания оповещения внутри приложения.
+*/
+class CustomSnackBar extends StatefulWidget {
+  final String msg;               // сообщение
+  final String? action;           // действие (текст)
+  final VoidCallback? onAction;   // что делает действие
 
   const CustomSnackBar({super.key, required this.msg, this.action = 'UNDO', this.onAction});
 
+  @override
+  State<CustomSnackBar> createState() => _CustomSnackBarState();
+}
+
+class _CustomSnackBarState extends State<CustomSnackBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,11 +66,11 @@ class CustomSnackBar extends StatelessWidget {
         children: [
           SvgPicture.asset('assets/icons/success.svg',),
           SizedBox(width: 8.fw),
-          Expanded(child: Text(msg, style: AppText.bodyS.copyWith(color: AppColors.darkenWhite),)),
+          Expanded(child: Text(widget.msg, style: AppText.bodyS.copyWith(color: AppColors.darkenWhite),)),
           SizedBox(width: 38.fw),
           GestureDetector(
-            onTap: onAction ?? () {},
-            child: Text(action!, style: AppText.fieldLabel.copyWith(color: AppColors.grey),),
+            onTap: widget.onAction ?? () {},
+            child: Text(widget.action!, style: AppText.fieldLabel.copyWith(color: AppColors.grey),),
           )
         ],
       ),

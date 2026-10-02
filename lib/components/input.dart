@@ -7,6 +7,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 enum TextFieldState { disabled, error, focused, normal }  // состояния поле ввода
 enum TextFieldType { normal, pwrd, search, textArea }     // типы поле ввода
 
+/*
+    дата создания: 22-09-2026
+    автор создания: 1001
+    класс отвечает за создания и отрисовки аватара.
+*/
 class CustomTextField extends StatefulWidget {
   final TextFieldType? type;      // типы
   final TextFieldState? state;    // состояния
@@ -87,12 +92,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
     _focusNode = FocusNode()..addListener(_handleFocusChange);
   }
 
+  // слушатель, чтобы отлеживать состояние
   void _handleFocusChange() {
     if (_isFocused != _focusNode.hasFocus) {
       setState(() => _isFocused = _focusNode.hasFocus);
     }
   }
 
+  // очищаем
   @override
   void dispose() {
     _focusNode.removeListener(_handleFocusChange);

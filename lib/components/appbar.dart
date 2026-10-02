@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:vize/vize.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class CustomAppBar extends StatelessWidget {
+/*
+    дата создания: 29-09-2026
+    автор создания: 1001
+    класс отвечает за создания аппбара.
+ */
+class CustomAppBar extends StatefulWidget {
   final String title;           // заголовок
   final Widget? firstIcon;      // кнопка слева
   final Widget? secondIcon;     // кнопка справа
@@ -10,6 +15,17 @@ class CustomAppBar extends StatelessWidget {
   final VoidCallback? onTap2;   // действие на кнопку справа
 
   const CustomAppBar({super.key, required this.title, this.firstIcon, this.secondIcon, this.onTap1, this.onTap2});
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +41,17 @@ class CustomAppBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          if (firstIcon != null) ...[
+          if (widget.firstIcon != null) ...[
             GestureDetector(
-              onTap: onTap1,
-              child: firstIcon,
+              onTap: widget.onTap1,
+              child: widget.firstIcon,
             ), SizedBox(width: 12.fw,),
           ],
-          Expanded(child: Text(title, style: AppText.subHeader, maxLines: 2, overflow: .ellipsis,)),
-          if (secondIcon != null) ...[
+          Expanded(child: Text(widget.title, style: AppText.subHeader, maxLines: 2, overflow: .ellipsis,)),
+          if (widget.secondIcon != null) ...[
             GestureDetector(
-              onTap: onTap2,
-              child: secondIcon,
+              onTap: widget.onTap2,
+              child: widget.secondIcon,
             ), SizedBox(width: 12.fw,),
           ],
         ],

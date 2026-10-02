@@ -2,21 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:vize/vize.dart';
 import 'package:ui_kit/ui_kit.dart';
 
+// перечисляем различные варианты аватарки
 enum AvatarType {
-  avatar1,
-  avatar2,
-  avatar3,
-  avatar4,
-  avatar5,
-  initials,
+  avatar1,    // синий мужчина
+  avatar2,    // нарисованная женщина
+  avatar3,    // крутой чел в костюме
+  avatar4,    // аватарка с мужчиной (нарисованный)
+  avatar5,    // аватарка с женщиной
+  initials,   // строится на initialsFromName
 }
 
+/*
+    дата создания: 25-09-2026
+    автор создания: 1001
+    класс отвечает за создания и отрисовки аватара.
+*/
 class CustomAvatars extends StatelessWidget {
-  final double size;
-  final AvatarType? avatar;
-  final ImageProvider? image;
-  final String initials;
-  final String? wth; // под аватаркой
+  final double size;            // размер аватара
+  final AvatarType? avatar;     // тип аватара
+  final ImageProvider? image;   // если у нас фото загружается с бд
+  final String initials;        // фио личности
+  final String? wth;            // под аватаркой
 
   const CustomAvatars({
     super.key,
@@ -27,6 +33,7 @@ class CustomAvatars extends StatelessWidget {
     this.wth = null,
   });
 
+  // определяем к каждому типу аватара свою картинку
   String? get _assetPath => switch (avatar) {
     AvatarType.avatar1 => '/assets/images/avatar1.png',
     AvatarType.avatar2 => '/assets/images/avatar2.png',
@@ -98,13 +105,14 @@ class CustomAvatars extends StatelessWidget {
   }
 }
 
+// функция, чтобы достать первые буквы из ФИО личности
 String initialsFromName(String name) {
   final parts = name
-      .trim()
-      .split(RegExp(r'\s+'))
+      .trim()                       // убираем лишние пробелы
+      .split(RegExp(r'\s+'))        // делим там, где есть пробелы
       .where((p) => p.isNotEmpty)
-      .toList();
+      .toList();                    // возвращаем в список
   if (parts.isEmpty) return '';
-  if (parts.length == 1) return parts.first[0].toUpperCase();
-  return (parts.first[0] + parts.last[0]).toUpperCase();
+  if (parts.length == 1) return parts.first[0].toUpperCase(); // если 1 элемент
+  return (parts.first[0] + parts.last[0]).toUpperCase();      // если 2+
 }
