@@ -172,7 +172,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     colorFilter: .mode(AppColors.secondary, .srcIn),
                     package: 'ui_kit',
                   ),
-                  SizedBox(height: 4.fh),
+                  SizedBox(height: 0.fh),
                   Text(
                     _jsonItems.first.label,
                     style: AppText.bodyS.copyWith(color: AppColors.secondary),
@@ -207,7 +207,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     colorFilter: .mode(AppColors.white, .srcIn),
                     package: 'ui_kit',
                   ),
-                  SizedBox(height: 4.fh),
+                  SizedBox(height: 0.fh),
                   Text(
                     _jsonItems.last.label,
                     style: AppText.bodyS.copyWith(color: AppColors.white),
