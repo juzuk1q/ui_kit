@@ -17,7 +17,7 @@ enum AvatarType {
     автор создания: 1001
     класс отвечает за создания и отрисовки аватара.
 */
-class CustomAvatars extends StatelessWidget {
+class CustomAvatars extends StatefulWidget {
   final double size;            // размер аватара
   final AvatarType? avatar;     // тип аватара
   final ImageProvider? image;   // если у нас фото загружается с бд
@@ -30,22 +30,49 @@ class CustomAvatars extends StatelessWidget {
     this.avatar,
     this.image,
     required this.initials,
-    this.wth = null,
+    this.wth,
   });
 
-  // определяем к каждому типу аватара свою картинку
-  String? get _assetPath => switch (avatar) {
-    AvatarType.avatar1 => '/assets/images/avatar1.png',
-    AvatarType.avatar2 => '/assets/images/avatar2.png',
-    AvatarType.avatar3 => '/assets/images/avatar3.png',
-    AvatarType.avatar4 => '/assets/images/avatar4.png',
-    AvatarType.avatar5 => '/assets/images/avatar5.jpg',
-    AvatarType.initials => null,
-    null => null,
-  };
+  @override
+  State<CustomAvatars> createState() => _CustomAvatarsState();
+}
 
-  ImageProvider? get _Image2 {
-    if (image != null) return image;
+class _CustomAvatarsState extends State<CustomAvatars> {
+  @override
+  void initState() {
+    super.initState();
+    appLog(
+      'CustomAvatars',
+      'Инициализация',
+      'Создание аватара (Тип: ${widget.avatar}, Инициалы: "${widget.initials}", Размер: ${widget.size})',
+      level: LogLevel.info,
+    );
+  }
+
+  @override
+  void dispose() {
+    appLog(
+      'CustomAvatars',
+      'Уничтожение',
+      'Уничтожение аватара (Инициалы: "${widget.initials}")',
+      level: LogLevel.info,
+    );
+    super.dispose();
+  }
+
+  // определяем к каждому типу аватара свою картинку
+  String? get _assetPath => switch (widget.avatar) {
+        AvatarType.avatar1 => 'assets/images/avatar1.png',
+        AvatarType.avatar2 => 'assets/images/avatar2.png',
+        AvatarType.avatar3 => 'assets/images/avatar3.png',
+        AvatarType.avatar4 => 'assets/images/avatar4.png',
+        AvatarType.avatar5 => 'assets/images/avatar5.jpg',
+        AvatarType.initials => null,
+        null => null,
+      };
+
+  ImageProvider? get _imageProvider {
+    if (widget.image != null) return widget.image;
     final path = _assetPath;
     if (path != null) {
       return AssetImage(path, package: 'ui_kit');
@@ -55,11 +82,18 @@ class CustomAvatars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final img = _Image2;
+    appLog(
+      'CustomAvatars',
+      'Отрисовка',
+      'Отрисовка аватара (Тип: ${widget.avatar}, Инициалы: "${widget.initials}", Размер: ${widget.size})',
+      level: LogLevel.debug,
+    );
+
+    final img = _imageProvider;
 
     final icon = Container(
-      height: size.fh,
-      width: size.fw,
+      height: widget.size.fh,
+      width: widget.size.fw,
       decoration: BoxDecoration(
         shape: .circle,
         color: AppColors.darkenWhite,
@@ -70,7 +104,7 @@ class CustomAvatars extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                initialsFromName(initials),
+                initialsFromName(widget.initials),
                 style: TextStyle(
                   fontFamily: 'Manrope',
                   fontSize: 20,
@@ -84,7 +118,15 @@ class CustomAvatars extends StatelessWidget {
                 child: Image(
                   image: img,
                   fit: .cover,
-                  errorBuilder: (_, __, ___) => SizedBox.shrink(),
+                  errorBuilder: (context, error, stackTrace) {
+                    appLog(
+                      'CustomAvatars',
+                      'Ошибка',
+                      'Ошибка загрузки изображения аватара: $error',
+                      level: LogLevel.error,
+                    );
+                    return const SizedBox.shrink();
+                  },
                 ),
               ),
           ],
@@ -96,9 +138,9 @@ class CustomAvatars extends StatelessWidget {
       mainAxisSize: .min,
       children: [
         icon,
-        if (wth != null) ...[
+        if (widget.wth != null) ...[
           SizedBox(height: 8.fh),
-          Text(wth!, style: AppText.bodyM)
+          Text(widget.wth!, style: AppText.bodyM)
         ],
       ],
     );

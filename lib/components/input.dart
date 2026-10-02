@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit/components/colors.dart';
 import 'package:ui_kit/components/fonts.dart';
+import 'package:ui_kit/log.dart';
 import 'package:vize/vize.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -48,11 +49,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = true;         // флаг для скрытия / показа вводимых данных в поле пароля
 
   TextFieldState get _currentState {
-    if (widget.state != null)
+    if (widget.state != null) {
       return widget.state!; // виджет работает как обычно
+    }
     if (!widget.enabled) return TextFieldState.disabled; // виджет отключен
-    if (widget.hasError)
+    if (widget.hasError) {
       return TextFieldState.error; // виджет с состоянием ошибкой
+    }
     if (_isFocused) return TextFieldState.focused; // виджет с состоянием фокуса
     return TextFieldState.normal; // виджет "обычный"
   }
@@ -89,19 +92,37 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
+    appLog(
+      'CustomTextField',
+      'Инициализация',
+      'Создание инпута (Label: "${widget.labelText ?? ''}", Type: ${widget.type})',
+      level: LogLevel.info,
+    );
     _focusNode = FocusNode()..addListener(_handleFocusChange);
   }
 
-  // слушатель, чтобы отлеживать состояние
+  // слушатель, чтобы отслеживать состояние
   void _handleFocusChange() {
     if (_isFocused != _focusNode.hasFocus) {
       setState(() => _isFocused = _focusNode.hasFocus);
+      appLog(
+        'CustomTextField',
+        'Смена фокуса',
+        'Label: "${widget.labelText ?? ''}", focus: $_isFocused',
+        level: LogLevel.debug,
+      );
     }
   }
 
   // очищаем
   @override
   void dispose() {
+    appLog(
+      'CustomTextField',
+      'Уничтожение',
+      'Уничтожение инпута (Label: "${widget.labelText ?? ''}")',
+      level: LogLevel.info,
+    );
     _focusNode.removeListener(_handleFocusChange);
     _focusNode.dispose();
     super.dispose();
@@ -109,6 +130,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    if (_currentState == TextFieldState.error) {
+      appLog(
+        'CustomTextField',
+        'Ошибка',
+        'Ошибка валидации: "${widget.errorDescription}"',
+        level: LogLevel.error,
+      );
+    }
+
     final border = OutlineInputBorder(
       borderSide: BorderSide(color: _borderColor, width: 1),
       borderRadius: .circular(8.r),
@@ -191,10 +221,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget? get _suffixIcon {
     if (widget.type == TextFieldType.pwrd) {
       return GestureDetector(
-        onTap: () => setState(() => _obscureText = !_obscureText),
+        onTap: () {
+          setState(() => _obscureText = !_obscureText);
+          appLog(
+            'CustomTextField',
+            'Видимость пароля',
+            'Скрытие текста: $_obscureText',
+            level: LogLevel.debug,
+          );
+        },
         child: Padding(
           padding: po(r: 18.fw),
-          child: SizedBox(width: 18.fw, child: SvgPicture.asset('assets/icons/eye.svg', package: 'ui_kit',)),
+          child: SizedBox(
+            width: 18.fw,
+            child: SvgPicture.asset('assets/icons/eye.svg', package: 'ui_kit'),
+          ),
         ),
       );
     }

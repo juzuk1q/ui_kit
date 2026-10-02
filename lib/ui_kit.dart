@@ -1,6 +1,7 @@
 // либка для uikit;
 library uiKit;
 
+export 'log.dart';
 export 'components/colors.dart';
 export 'components/fonts.dart';
 export 'components/input.dart';

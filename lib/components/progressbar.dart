@@ -18,6 +18,28 @@ class CustomProgressBar extends StatefulWidget {
 }
 
 class _CustomProgressBarState extends State<CustomProgressBar> {
+  @override
+  void initState() {
+    super.initState();
+    appLog(
+      'CustomProgressBar',
+      'Инициализация',
+      'Всего шагов: ${widget.totalSteps}, Текущий шаг: ${widget.currentSteps}',
+      level: LogLevel.info,
+    );
+  }
+
+  @override
+  void dispose() {
+    appLog(
+      'CustomProgressBar',
+      'Уничтожение',
+      'Уничтожение индикатора прогресса',
+      level: LogLevel.info,
+    );
+    super.dispose();
+  }
+
   // красим элемент в зависимости от шага
   Color _colorIndex(int index) {
     final stepNumber = index + 1;
@@ -25,7 +47,7 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
     if (stepNumber < widget.currentSteps) {
       return AppColors.primary;
     } else if (stepNumber == widget.currentSteps) {
-     return AppColors.secondary;
+      return AppColors.secondary;
     } else {
       return AppColors.grey;
     }
@@ -33,6 +55,13 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
 
   @override
   Widget build(BuildContext context) {
+    appLog(
+      'CustomProgressBar',
+      'Отрисовка',
+      'Отрисовка шагов (${widget.currentSteps}/${widget.totalSteps})',
+      level: LogLevel.debug,
+    );
+
     return Row(
       children: List.generate(widget.totalSteps, (index) {
         final color = _colorIndex(index);
@@ -53,4 +82,3 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
     );
   }
 }
-

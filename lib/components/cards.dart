@@ -17,7 +17,7 @@ enum CardType {
     автор создания: 1001
     класс отвечает за создания и отрисовки карточек (они нигде не используются, зачем).
 */
-class CustomCard extends StatelessWidget {
+class CustomCard extends StatefulWidget {
   final CardType type; // тип карточки
   final double height; // высота карточки
   final VoidCallback onTap; // действие при нажатии
@@ -51,14 +51,56 @@ class CustomCard extends StatelessWidget {
     this.iconText4 = '24 Applicants',
   });
 
+  @override
+  State<CustomCard> createState() => _CustomCardState();
+}
+
+class _CustomCardState extends State<CustomCard> {
+  @override
+  void initState() {
+    super.initState();
+    appLog(
+      'CustomCard',
+      'Инициализация',
+      'Создание карточки (Тип: ${widget.type}, Title: "${widget.title ?? ''}")',
+      level: LogLevel.info,
+    );
+  }
+
+  @override
+  void dispose() {
+    appLog(
+      'CustomCard',
+      'Уничтожение',
+      'Уничтожение карточки (Тип: ${widget.type})',
+      level: LogLevel.info,
+    );
+    super.dispose();
+  }
+
   // каркас для карточек
   @override
   Widget build(BuildContext context) {
+    appLog(
+      'CustomCard',
+      'Отрисовка',
+      'Отрисовка карточки (Тип: ${widget.type}, Title: "${widget.title ?? ''}")',
+      level: LogLevel.debug,
+    );
+
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        appLog(
+          'CustomCard',
+          'Нажатие',
+          'Клик по карточке (Тип: ${widget.type}, Title: "${widget.title ?? ''}")',
+          level: LogLevel.info,
+        );
+        widget.onTap();
+      },
       child: Container(
         padding: pa(16),
-        height: height.fh,
+        height: widget.height.fh,
         width: double.infinity,
         decoration: BoxDecoration(
           color: AppColors.white,
@@ -73,7 +115,7 @@ class CustomCard extends StatelessWidget {
           ],
         ),
         // меняем содержимое, в зависимости от типа карточки
-        child: switch (type) {
+        child: switch (widget.type) {
           CardType.visitCard => _VisitCard(),
           CardType.vacantion => _VacantionCard(),
           CardType.vacantionV2 => _VacantionV2Card(),
@@ -89,11 +131,11 @@ class CustomCard extends StatelessWidget {
       mainAxisSize: .min,
       crossAxisAlignment: .center,
       children: [
-        CustomAvatars(initials: title!, avatar: .avatar2, size: 96),
+        CustomAvatars(initials: widget.title!, avatar: .avatar2, size: 96),
         SizedBox(height: 16.fh),
-        Text(title!, style: AppText.subHeader),
+        Text(widget.title!, style: AppText.subHeader),
         SizedBox(height: 4.fh),
-        Text(job!, style: AppText.bodyM.copyWith(color: AppColors.secondary)),
+        Text(widget.job!, style: AppText.bodyM.copyWith(color: AppColors.secondary)),
       ],
     );
   }
@@ -105,15 +147,15 @@ class CustomCard extends StatelessWidget {
         Row(
           children: [
             Text(
-              job!,
+              widget.job!,
               style: AppText.subHeader.copyWith(color: AppColors.black),
             ),
             Spacer(),
-            _chipCircle(status ?? 'Active', AppColors.secondary, AppColors.grey),
+            _chipCircle(widget.status ?? 'Active', AppColors.secondary, AppColors.grey),
           ],
         ),
         SizedBox(height: 4.fh),
-        Text([iconText1, iconText2].join(' • '), style: AppText.bodyS.copyWith(color: AppColors.secondary)),
+        Text([widget.iconText1, widget.iconText2].join(' • '), style: AppText.bodyS.copyWith(color: AppColors.secondary)),
         SizedBox(height: 16.fh),
         Container(
           padding: po(t: 10),
@@ -129,9 +171,9 @@ class CustomCard extends StatelessWidget {
             mainAxisSize: .min,
             crossAxisAlignment: .start,
             children: [
-              _IconText(icon3!, iconText3!, 11, 16.5, AppColors.black),
+              _IconText(widget.icon3!, widget.iconText3!, 11, 16.5, AppColors.black),
               SizedBox(width: 24.fw),
-              _IconText(icon4!, iconText4!, 9, 16, AppColors.black),
+              _IconText(widget.icon4!, widget.iconText4!, 9, 16, AppColors.black),
             ],
           ),
         ),
@@ -145,22 +187,22 @@ class CustomCard extends StatelessWidget {
         Row(
           crossAxisAlignment: .start,
           children: [
-            CustomAvatars(initials: title!, avatar: .initials),
+            CustomAvatars(initials: widget.title!, avatar: .initials),
             SizedBox(width: 16.fw),
             Column(
               crossAxisAlignment: .start,
               children: [
-                Text(title!, style: AppText.bodyS),
+                Text(widget.title!, style: AppText.bodyS),
                 SizedBox(height: 4.fh),
                 Row(
                   children: [
-                    _IconText(icon1!, iconText1!, 13, 13),
+                    _IconText(widget.icon1!, widget.iconText1!, 13, 13),
                     SizedBox(width: 18.fw),
-                    _IconText(icon2!, iconText2!, 13, 13),
+                    _IconText(widget.icon2!, widget.iconText2!, 13, 13),
                   ],
                 ),
                 SizedBox(height: 4.fh),
-                _IconText(icon3!, iconText3!, 15, 10, AppColors.black),
+                _IconText(widget.icon3!, widget.iconText3!, 15, 10, AppColors.black),
               ],
             ),
           ],
@@ -188,7 +230,7 @@ class CustomCard extends StatelessWidget {
       ],
     );
   }
-  
+
   Widget _NumberCard() {
     return Column(
       mainAxisAlignment: .start,
@@ -201,7 +243,7 @@ class CustomCard extends StatelessWidget {
             Column(
               crossAxisAlignment: .start,
               children: [
-                Text(title!, style: AppText.fieldLabel,),
+                Text(widget.title!, style: AppText.fieldLabel,),
                 Text('Senior Product', style: AppText.bodyS.copyWith(color: AppColors.secondary),)
               ],
             ),
@@ -222,16 +264,16 @@ class CustomCard extends StatelessWidget {
       ],
     );
   }
-  
+
   Widget _ExperienceCard() {
     return Container(
       padding: pa(8),
       child: Column(
         crossAxisAlignment: .start,
         children: [
-          Text(title!, style: AppText.subHeader.copyWith(fontWeight: .w700)),
+          Text(widget.title!, style: AppText.subHeader.copyWith(fontWeight: .w700)),
           SizedBox(height: 4.fh),
-          Text(job!, style: AppText.bodyM.copyWith(color: AppColors.secondary)),
+          Text(widget.job!, style: AppText.bodyM.copyWith(color: AppColors.secondary)),
           SizedBox(height: 16.fh),
           Row(children: [
             _chipCircle('Shortlisted', AppColors.secondary, AppColors.darkenWhite),

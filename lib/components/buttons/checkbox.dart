@@ -22,7 +22,7 @@ class CustomCheckbox extends StatefulWidget {
 
   const CustomCheckbox({
     super.key,
-    this.state = .unchecked,
+    this.state = CheckBoxState.unchecked,
     this.value = false,
     this.onTap,
   });
@@ -33,39 +33,84 @@ class CustomCheckbox extends StatefulWidget {
 
 class _CustomCheckboxState extends State<CustomCheckbox> {
 
+  @override
+  void initState() {
+    super.initState();
+    appLog(
+      'CustomCheckbox',
+      'Инициализация',
+      'Создание чекбокса (state: ${widget.state}, value: ${widget.value})',
+      level: LogLevel.info,
+    );
+  }
+
+  @override
+  void dispose() {
+    appLog(
+      'CustomCheckbox',
+      'Уничтожение',
+      'Уничтожение чекбокса',
+      level: LogLevel.info,
+    );
+    super.dispose();
+  }
+
   // получаем состояние чекбокса
   CheckBoxState get _currentState {
     // если чекбокс отключен по некоторым причинам
     if (widget.state == CheckBoxState.disabled) return CheckBoxState.disabled;
     // если известно, что значения чекбокса != false или его состояние сразу выбрано, то делаем его выбранным
-    if (widget.value || widget.state == CheckBoxState.checked)
+    if (widget.value || widget.state == CheckBoxState.checked) {
       return CheckBoxState.checked;
-    return CheckBoxState.unchecked;   // в других случаях не выбран
+    }
+    return CheckBoxState.unchecked; // в других случаях не выбран
   }
 
   // кортеж для сопоставления цветов с вариантом кнопки
-  ({Color bgColor, Color borderColor}) get _colors => switch (widget.state) {
-    CheckBoxState.checked => (
-      bgColor: AppColors.primary,
-      borderColor: AppColors.primary,
-    ),
-    CheckBoxState.unchecked => (
-      bgColor: AppColors.darkenWhite,
-      borderColor: AppColors.secondary,
-    ),
-    CheckBoxState.disabled => (
-      bgColor: AppColors.darkenWhite,
-      borderColor: AppColors.grey,
-    ),
-  };
+  ({Color bgColor, Color borderColor}) get _colors => switch (_currentState) {
+        CheckBoxState.checked => (
+            bgColor: AppColors.primary,
+            borderColor: AppColors.primary,
+          ),
+        CheckBoxState.unchecked => (
+            bgColor: AppColors.darkenWhite,
+            borderColor: AppColors.secondary,
+          ),
+        CheckBoxState.disabled => (
+            bgColor: AppColors.darkenWhite,
+            borderColor: AppColors.grey,
+          ),
+      };
+
+  void _handleTap() {
+    final isDisabled = _currentState == CheckBoxState.disabled;
+    if (isDisabled) {
+      appLog(
+        'CustomCheckbox',
+        'Переключение',
+        'Попытка клика по заблокированному чекбоксу',
+        level: LogLevel.debug,
+      );
+      return;
+    }
+
+    final isChecked = _currentState == CheckBoxState.checked;
+    appLog(
+      'CustomCheckbox',
+      'Переключение',
+      'Чекбокс переключен (было выбран: $isChecked)',
+      level: LogLevel.info,
+    );
+
+    widget.onTap?.call();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isChecked = _currentState == CheckBoxState.checked;
-    final isDisabled = _currentState == CheckBoxState.disabled;
 
     return GestureDetector(
-      onTap: isDisabled ? null : widget.onTap,
+      onTap: _handleTap,
       child: Container(
         padding: pa(5),
         height: 24.fh,

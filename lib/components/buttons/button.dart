@@ -15,7 +15,7 @@ enum CustomButtonState {
     автор создания: 1001
     класс отвечает за создание кнопки
  */
-class CustomButton extends StatelessWidget {
+class CustomButton extends StatefulWidget {
   final VoidCallback onTap; // действие при нажатии
   final String text; // текст кнопки
   final CustomButtonState state; // тип кнопки
@@ -27,9 +27,36 @@ class CustomButton extends StatelessWidget {
     this.state = CustomButtonState.normal,
   });
 
+  @override
+  State<CustomButton> createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  @override
+  void initState() {
+    super.initState();
+    appLog(
+      'CustomButton',
+      'Инициализация',
+      'Создание кнопки "${widget.text}" (${widget.state})',
+      level: LogLevel.info,
+    );
+  }
+
+  @override
+  void dispose() {
+    appLog(
+      'CustomButton',
+      'Уничтожение',
+      'Уничтожение кнопки "${widget.text}"',
+      level: LogLevel.info,
+    );
+    super.dispose();
+  }
+
   // кортеж для сопоставления цветов с вариантом кнопки
   ({Color textColor, Color bgColor, Color borderColor}) get _colors =>
-      switch (state) {
+      switch (widget.state) {
         CustomButtonState.normal => (
           textColor: AppColors.white,
           bgColor: AppColors.primary,
@@ -52,10 +79,31 @@ class CustomButton extends StatelessWidget {
         ),
       };
 
+  void _handleTap() {
+    if (widget.state == CustomButtonState.disabled) {
+      appLog(
+        'CustomButton',
+        'Нажатие',
+        'Попытка клика по заблокированной кнопке "${widget.text}"',
+        level: LogLevel.debug,
+      );
+      return;
+    }
+
+    appLog(
+      'CustomButton',
+      'Нажатие',
+      'Клик по кнопке "${widget.text}" (${widget.state})',
+      level: LogLevel.info,
+    );
+
+    widget.onTap();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: _handleTap,
       child: Container(
         height: 48.fh,
         width: double.infinity,
@@ -70,7 +118,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            text,
+            widget.text,
             style: AppText.bodyM.copyWith(color: _colors.textColor),
           ),
         ),

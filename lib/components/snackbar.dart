@@ -5,11 +5,18 @@ import 'package:vize/vize.dart';
 
 //вызов снэкбара
 void showCustomSnack(
-    BuildContext context, {
-      required String msg,
-      String action = 'UNDO',
-      VoidCallback? onAction,
-    }) {
+  BuildContext context, {
+  required String msg,
+  String action = 'UNDO',
+  VoidCallback? onAction,
+}) {
+  appLog(
+    'CustomSnackBar',
+    'Показ оповещения',
+    'Сообщение: "$msg"',
+    level: LogLevel.info,
+  );
+
   final messenger = ScaffoldMessenger.of(context);
   messenger.showSnackBar(
       SnackBar(
@@ -29,7 +36,7 @@ void showCustomSnack(
         ),
       ),
     );
-  }
+}
 
 /*
     дата создания: 29-09-2026
@@ -41,7 +48,12 @@ class CustomSnackBar extends StatefulWidget {
   final String? action;           // действие (текст)
   final VoidCallback? onAction;   // что делает действие
 
-  const CustomSnackBar({super.key, required this.msg, this.action = 'UNDO', this.onAction});
+  const CustomSnackBar({
+    super.key,
+    required this.msg,
+    this.action = 'UNDO',
+    this.onAction,
+  });
 
   @override
   State<CustomSnackBar> createState() => _CustomSnackBarState();
@@ -49,7 +61,36 @@ class CustomSnackBar extends StatefulWidget {
 
 class _CustomSnackBarState extends State<CustomSnackBar> {
   @override
+  void initState() {
+    super.initState();
+    appLog(
+      'CustomSnackBar',
+      'Инициализация',
+      'Создание снекбара (Сообщение: "${widget.msg}")',
+      level: LogLevel.info,
+    );
+  }
+
+  @override
+  void dispose() {
+    appLog(
+      'CustomSnackBar',
+      'Уничтожение',
+      'Уничтожение снекбара',
+      level: LogLevel.info,
+    );
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    appLog(
+      'CustomSnackBar',
+      'Отрисовка',
+      'Отрисовка снекбара (Сообщение: "${widget.msg}")',
+      level: LogLevel.debug,
+    );
+
     return Container(
       padding: pa(16),
       height: 72.fh,
@@ -64,13 +105,32 @@ class _CustomSnackBarState extends State<CustomSnackBar> {
       ),
       child: Row(
         children: [
-          SvgPicture.asset('assets/icons/success.svg',),
+          SvgPicture.asset(
+            'assets/icons/success.svg',
+            package: 'ui_kit',
+          ),
           SizedBox(width: 8.fw),
-          Expanded(child: Text(widget.msg, style: AppText.bodyS.copyWith(color: AppColors.darkenWhite),)),
+          Expanded(
+            child: Text(
+              widget.msg,
+              style: AppText.bodyS.copyWith(color: AppColors.darkenWhite),
+            ),
+          ),
           SizedBox(width: 38.fw),
           GestureDetector(
-            onTap: widget.onAction ?? () {},
-            child: Text(widget.action!, style: AppText.fieldLabel.copyWith(color: AppColors.grey),),
+            onTap: () {
+              appLog(
+                'CustomSnackBar',
+                'Нажатие',
+                'Клик по действию "${widget.action ?? ''}"',
+                level: LogLevel.info,
+              );
+              widget.onAction?.call();
+            },
+            child: Text(
+              widget.action!,
+              style: AppText.fieldLabel.copyWith(color: AppColors.grey),
+            ),
           )
         ],
       ),

@@ -6,7 +6,7 @@ import 'package:vize/vize.dart';
 // тип ботмбара
 enum BottomBarType {
   normal,   // обычный (используется в основных экранах приложения)
-  fromJSON  // для редактирования (используется при заполнении каких-либо анкет
+  fromJSON  // для редактирования (используется при заполнении каких-либо анкет)
 }
 
 /*
@@ -14,7 +14,7 @@ enum BottomBarType {
     автор создания: 1001
     класс отвечает за создание ботмбара в нижней части экрана.
 */
-class CustomBottomBar extends StatelessWidget {
+class CustomBottomBar extends StatefulWidget {
   final int selectedIndex; // выбранный элемент
   final BottomBarType type; // тип ботмбара
   final ValueChanged<int>? onTap; // нажатие на элемент
@@ -23,13 +23,18 @@ class CustomBottomBar extends StatelessWidget {
 
   const CustomBottomBar({
     super.key,
-    this.type = .normal,
+    this.type = BottomBarType.normal,
     this.selectedIndex = 0,
     this.onTap,
     this.onSaveTap,
     this.onContinueTap,
   });
 
+  @override
+  State<CustomBottomBar> createState() => _CustomBottomBarState();
+}
+
+class _CustomBottomBarState extends State<CustomBottomBar> {
   // словарь для основного ботмбара
   static const _items = [
     (label: 'Vacancies', icon: 'assets/icons/vacancies.svg'),
@@ -44,7 +49,36 @@ class CustomBottomBar extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    appLog(
+      'CustomBottomBar',
+      'Инициализация',
+      'Создание бара (Тип: ${widget.type}, Выбран индекс: ${widget.selectedIndex})',
+      level: LogLevel.info,
+    );
+  }
+
+  @override
+  void dispose() {
+    appLog(
+      'CustomBottomBar',
+      'Уничтожение',
+      'Уничтожение бара (Тип: ${widget.type})',
+      level: LogLevel.info,
+    );
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    appLog(
+      'CustomBottomBar',
+      'Отрисовка',
+      'Отрисовка бара (Тип: ${widget.type}, Выбран индекс: ${widget.selectedIndex})',
+      level: LogLevel.debug,
+    );
+
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -54,7 +88,7 @@ class CustomBottomBar extends StatelessWidget {
           topRight: .circular(12.r),
         ),
       ),
-      child: type == .fromJSON ? _FromJSON() : _Normal(), // если тип ботмбара не указан, по умолчанию делаем обычный.
+      child: widget.type == BottomBarType.fromJSON ? _FromJSON() : _Normal(),
     );
   }
 
@@ -64,13 +98,21 @@ class CustomBottomBar extends StatelessWidget {
       padding: ps(h: 22.5.fw, v: 21.5.fh),
       child: Row(
         children: List.generate(_items.length, (i) {
-          final selected = i == selectedIndex;
+          final selected = i == widget.selectedIndex;
           final item = _items[i];
           return Expanded(
             child: Container(
               margin: ps(h: 18.5.fw),
               child: GestureDetector(
-                onTap: () => onTap?.call(i),
+                onTap: () {
+                  appLog(
+                    'CustomBottomBar',
+                    'Нажатие',
+                    'Переключение на вкладку "${item.label}" (Индекс: $i)',
+                    level: LogLevel.info,
+                  );
+                  widget.onTap?.call(i);
+                },
                 child: Column(
                   mainAxisSize: .min,
                   children: [
@@ -108,7 +150,15 @@ class CustomBottomBar extends StatelessWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: onSaveTap,
+            onTap: () {
+              appLog(
+                'CustomBottomBar',
+                'Нажатие',
+                'Клик по кнопке "${_jsonItems.first.label}"',
+                level: LogLevel.info,
+              );
+              widget.onSaveTap?.call();
+            },
             child: Container(
               padding: pa(8),
               height: 48,
@@ -133,7 +183,15 @@ class CustomBottomBar extends StatelessWidget {
           ),
           SizedBox(width: 8.fw),
           GestureDetector(
-            onTap: onContinueTap,
+            onTap: () {
+              appLog(
+                'CustomBottomBar',
+                'Нажатие',
+                'Клик по кнопке "${_jsonItems.last.label}"',
+                level: LogLevel.info,
+              );
+              widget.onContinueTap?.call();
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: AppColors.primary,
